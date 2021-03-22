@@ -29,12 +29,7 @@ struct RotatingGradientView: View {
      Depending on which gradient is being shown, the new color is added to the opposite gradient and then flips the firstPlane flag
      */
     func setGradient(gradient: [Color]) {
-        if firstPlane {
-            gradientB = gradient
-        }
-        else {
-            gradientA = gradient
-        }
+        firstPlane ? (gradientB = gradient) : (gradientA = gradient)
         firstPlane = !firstPlane
     }
 
@@ -51,7 +46,7 @@ struct RotatingGradientView: View {
                 .bold()
         }
         .frame(width: 250, height: 60)
-        .animation(.linear(duration: 2.0))
+        .animation(.easeInOut(duration: 2.0))
         .cornerRadius(10.0)
         .onReceive(timer) { _ in
             // If colorIndex exceeds the number of gradients, reset back to beginning
@@ -68,11 +63,3 @@ struct RotatingGradientView: View {
         
     }
 }
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        RotatingGradientView()
-    }
-}
-
